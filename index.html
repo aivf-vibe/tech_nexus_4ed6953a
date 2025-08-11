@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage - School Management System</title>
+    <meta name="description" content="Comprehensive school management system for modern educational institutions">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EduManage</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#students">Students</a></li>
+                <li><a href="#teachers">Teachers</a></li>
+                <li><a href="#classes">Classes</a></li>
+                <li><a href="#attendance">Attendance</a></li>
+                <li><a href="#grades">Grades</a></li>
+                <li><a href="#reports">Reports</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to EduManage</h1>
+            <p>Streamline your school's operations with our comprehensive management system. Track students, manage classes, monitor attendance, and generate reports - all in one place.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                </button>
+                <button class="btn-secondary" onclick="showSection('students')">
+                    <i class="fas fa-user-graduate"></i> Manage Students
+                </button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-school"></i>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section">
+        <div class="container">
+            <h2>Dashboard Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>1,247</h3>
+                    <p>Total Students</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>85</h3>
+                    <p>Teachers</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-book"></i>
+                    <h3>42</h3>
+                    <p>Classes</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-percentage"></i>
+                    <h3>94.2%</h3>
+                    <p>Attendance Rate</p>
+                </div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-user-plus"></i>
+                            <span>New student registered: John Smith</span>
+                            <small>2 hours ago</small>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Attendance marked for Grade 10A</span>
+                            <small>3 hours ago</small>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-star"></i>
+                            <span>Grades updated for Mathematics exam</span>
+                            <small>5 hours ago</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions">
+                        <button class="action-btn" onclick="showSection('students')">
+                            <i class="fas fa-plus"></i>
+                            Add Student
+                        </button>
+                        <button class="action-btn" onclick="showSection('attendance')">
+                            <i class="fas fa-clipboard-check"></i>
+                            Mark Attendance
+                        </button>
+                        <button class="action-btn" onclick="showSection('grades')">
+                            <i class="fas fa-star"></i>
+                            Enter Grades
+                        </button>
+                        <button class="action-btn" onclick="generateReport()">
+                            <i class="fas fa-file-alt"></i>
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Students Section -->
+    <section id="students" class="section">
+        <div class="container">
+            <h2>Student Management</h2>
+            <div class="section-header">
+                <button class="btn-primary" onclick="openModal('addStudentModal')">
+                    <i class="fas fa-plus"></i> Add New Student
+                </button>
+                <div class="search-box">
+                    <input type="text" placeholder="Search students..." id="studentSearch">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Grade</th>
+                            <th>Class</th>
+                            <th>Contact</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable">
+                        <tr>
+                            <td>1001</td>
+                            <td>Alice Johnson</td>
+                            <td>10</td>
+                            <td>10A</td>
+                            <td>alice@email.com</td>
+                            <td>
+                                <button class="btn-small" onclick="editStudent(1001)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-small btn-danger" onclick="deleteStudent(1001)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>Bob Williams</td>
+                            <td>11</td>
+                            <td>11B</td>
+                            <td>bob@email.com</td>
+                            <td>
+                                <button class="btn-small" onclick="editStudent(1002)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-small btn-danger" onclick="deleteStudent(1002)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section id="teachers" class="section">
+        <div class="container">
+            <h2>Teacher Management</h2>
+            <div class="section-header">
+                <button class="btn-primary" onclick="openModal('addTeacherModal')">
+                    <i class="fas fa-plus"></i> Add New Teacher
+                </button>
+                <div class="search-box">
+                    <input type="text" placeholder="Search teachers..." id="teacherSearch">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teachersTable">
+                        <tr>
+                            <td>T001</td>
+                            <td>Sarah Davis</td>
+                            <td>Mathematics</td>
+                            <td>sarah@school.edu</td>
+                            <td>+1-234-567-8901</td>
+                            <td>
+                                <button class="btn-small" onclick="editTeacher('T001')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-small btn-danger" onclick="deleteTeacher('T001')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="section">
+        <div class="container">
+            <h2>Class Management</h2>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <h3>Grade 10A</h3>
+                    <p><i class="fas fa-user-graduate"></i> 32 Students</p>
+                    <p><i class="fas fa-chalkboard-teacher"></i> Mrs. Smith</p>
+                    <p><i class="fas fa-clock"></i> 8:00 AM - 2:00 PM</p>
+                    <button class="btn-small" onclick="viewClass('10A')">View Details</button>
+                </div>
+                <div class="class-card">
+                    <h3>Grade 11B</h3>
+                    <p><i class="fas fa-user-graduate"></i> 28 Students</p>
+                    <p><i class="fas fa-chalkboard-teacher"></i> Mr. Johnson</p>
+                    <p><i class="fas fa-clock"></i> 8:30 AM - 2:30 PM</p>
+                    <button class="btn-small" onclick="viewClass('11B')">View Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attendance Section -->
+    <section id="attendance" class="section">
+        <div class="container">
+            <h2>Attendance Management</h2>
+            <div class="attendance-controls">
+                <select id="attendanceClass">
+                    <option value="">Select Class</option>
+                    <option value="10A">Grade 10A</option>
+                    <option value="11B">Grade 11B</option>
+                </select>
+                <input type="date" id="attendanceDate" value="2025-08-11">
+                <button class="btn-primary" onclick="markAttendance()">Mark Attendance</button>
+            </div>
+            
+            <div class="attendance-table" id="attendanceTable" style="display: none;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceBody">
+                    </tbody>
+                </table>
+                <button class="btn-primary" onclick="saveAttendance()">Save Attendance</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grades Section -->
+    <section id="grades" class="section">
+        <div class="container">
+            <h2>Grade Management</h2>
+            <div class="grades-controls">
+                <select id="gradesClass">
+                    <option value="">Select Class</option>
+                    <option value="10A">Grade 10A</option>
+                    <option value="11B">Grade 11B</option>
+                </select>
+                <select id="gradesSubject">
+                    <option value="">Select Subject</option>
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                    <option value="english">English</option>
+                </select>
+                <button class="btn-primary" onclick="loadGrades()">Load Students</button>
+            </div>
+            
+            <div class="grades-table" id="gradesTable" style="display: none;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gradesBody">
+                    </tbody>
+                </table>
+                <button class="btn-primary" onclick="saveGrades()">Save Grades</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section id="reports" class="section">
+        <div class="container">
+            <h2>Reports & Analytics</h2>
+            <div class="reports-grid">
+                <div class="report-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Attendance Report</h3>
+                    <p>Monthly attendance statistics</p>
+                    <button class="btn-small" onclick="generateReport('attendance')">Generate</button>
+                </div>
+                <div class="report-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Grade Analysis</h3>
+                    <p>Academic performance overview</p>
+                    <button class="btn-small" onclick="generateReport('grades')">Generate</button>
+                </div>
+                <div class="report-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Student Statistics</h3>
+                    <p>Student enrollment and demographics</p>
+                    <button class="btn-small" onclick="generateReport('students')">Generate</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settings" class="section">
+        <div class="container">
+            <h2>System Settings</h2>
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3>School Information</h3>
+                    <form id="schoolInfoForm">
+                        <label>School Name</label>
+                        <input type="text" value="Springfield High School">
+                        <label>Address</label>
+                        <input type="text" value="123 Education St, Springfield">
+                        <label>Phone</label>
+                        <input type="text" value="+1-234-567-8900">
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </form>
+                </div>
+                <div class="settings-card">
+                    <h3>Academic Year</h3>
+                    <form id="academicYearForm">
+                        <label>Current Year</label>
+                        <input type="text" value="2025-2026">
+                        <label>Start Date</label>
+                        <input type="date" value="2025-09-01">
+                        <label>End Date</label>
+                        <input type="date" value="2026-06-15">
+                        <button type="submit" class="btn-primary">Update Year</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 EduManage. All rights reserved. | School Management System</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addStudentModal')">&times;</span>
+            <h2>Add New Student</h2>
+            <form id="addStudentForm">
+                <label>Full Name</label>
+                <input type="text" required>
+                <label>Grade</label>
+                <select required>
+                    <option value="">Select Grade</option>
+                    <option value="9">Grade 9</option>
+                    <option value="10">Grade 10</option>
+                    <option value="11">Grade 11</option>
+                    <option value="12">Grade 12</option>
+                </select>
+                <label>Class</label>
+                <select required>
+                    <option value="">Select Class</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+                <label>Email</label>
+                <input type="email" required>
+                <label>Phone</label>
+                <input type="tel">
+                <button type="submit" class="btn-primary">Add Student</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addTeacherModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addTeacherModal')">&times;</span>
+            <h2>Add New Teacher</h2>
+            <form id="addTeacherForm">
+                <label>Full Name</label>
+                <input type="text" required>
+                <label>Subject</label>
+                <select required>
+                    <option value="">Select Subject</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="English">English</option>
+                    <option value="History">History</option>
+                    <option value="Art">Art</option>
+                </select>
+                <label>Email</label>
+                <input type="email" required>
+                <label>Phone</label>
+                <input type="tel">
+                <button type="submit" class="btn-primary">Add Teacher</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
